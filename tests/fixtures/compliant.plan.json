@@ -1,0 +1,97 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.5",
+  "resource_changes": [
+    {
+      "address": "azurerm_resource_group.main",
+      "type": "azurerm_resource_group",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "rg-backup-prod",
+          "location": "eastus",
+          "tags": {
+            "owner": "platform-team",
+            "environment": "prod",
+            "data_classification": "moderate"
+          }
+        }
+      }
+    },
+    {
+      "address": "azurerm_storage_account.backups",
+      "type": "azurerm_storage_account",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "stbackupprod",
+          "min_tls_version": "TLS1_2",
+          "https_traffic_only_enabled": true,
+          "public_network_access_enabled": false,
+          "allow_nested_items_to_be_public": false,
+          "tags": {
+            "owner": "platform-team",
+            "environment": "prod",
+            "data_classification": "moderate"
+          }
+        }
+      }
+    },
+    {
+      "address": "azurerm_key_vault.main",
+      "type": "azurerm_key_vault",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "kv-backup-prod",
+          "purge_protection_enabled": true,
+          "soft_delete_retention_days": 90,
+          "enable_rbac_authorization": true,
+          "public_network_access_enabled": false,
+          "tags": {
+            "owner": "platform-team",
+            "environment": "prod",
+            "data_classification": "moderate"
+          }
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_security_rule.ssh_from_bastion",
+      "type": "azurerm_network_security_rule",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "ssh-from-bastion",
+          "direction": "Inbound",
+          "access": "Allow",
+          "source_address_prefix": "10.0.254.0/24",
+          "destination_port_range": "22"
+        }
+      }
+    },
+    {
+      "address": "aws_s3_bucket_public_access_block.logs",
+      "type": "aws_s3_bucket_public_access_block",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "block_public_acls": true,
+          "block_public_policy": true,
+          "ignore_public_acls": true,
+          "restrict_public_buckets": true
+        }
+      }
+    }
+  ]
+}

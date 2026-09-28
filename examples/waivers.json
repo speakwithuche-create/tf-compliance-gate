@@ -1,0 +1,11 @@
+{
+  "waivers": [
+    {
+      "rule_id": "AZ-SQL-001",
+      "address": "azurerm_mssql_server.db",
+      "reason": "Legacy client needs TLS 1.0 until migration; tracked in POAM-042",
+      "approved_by": "isso@example.com",
+      "expires": "2099-12-31"
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.5",
+  "resource_changes": [
+    {
+      "address": "azurerm_resource_group.main",
+      "type": "azurerm_resource_group",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "rg-demo",
+          "location": "eastus",
+          "tags": {
+            "owner": "uche"
+          }
+        }
+      }
+    },
+    {
+      "address": "azurerm_storage_account.public",
+      "type": "azurerm_storage_account",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "stdemo",
+          "min_tls_version": "TLS1_0",
+          "https_traffic_only_enabled": false,
+          "public_network_access_enabled": true,
+          "allow_nested_items_to_be_public": true,
+          "tags": {
+            "owner": "platform-team",
+            "environment": "prod",
+            "data_classification": "moderate"
+          }
+        }
+      }
+    },
+    {
+      "address": "azurerm_key_vault.weak",
+      "type": "azurerm_key_vault",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "kv-demo",
+          "purge_protection_enabled": false,
+          "soft_delete_retention_days": 7,
+          "enable_rbac_authorization": false,
+          "tags": {
+            "owner": "platform-team",
+            "environment": "prod",
+            "data_classification": "moderate"
+          }
+        }
+      }
+    },
+    {
+      "address": "azurerm_network_security_group.web",
+      "type": "azurerm_network_security_group",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "nsg-web",
+          "security_rule": [
+            {
+              "name": "allow-https",
+              "direction": "Inbound",
+              "access": "Allow",
+              "source_address_prefix": "*",
+              "destination_port_range": "443"
+            },
+            {
+              "name": "allow-rdp",
+              "direction": "Inbound",
+              "access": "Allow",
+              "source_address_prefix": "Internet",
+              "destination_port_range": "3389"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "azurerm_mssql_server.db",
+      "type": "azurerm_mssql_server",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "sql-demo",
+          "minimum_tls_version": "1.0",
+          "public_network_access_enabled": true,
+          "tags": {
+            "owner": "platform-team",
+            "environment": "prod",
+            "data_classification": "moderate"
+          }
+        }
+      }
+    },
+    {
+      "address": "azurerm_kubernetes_cluster.aks",
+      "type": "azurerm_kubernetes_cluster",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "aks-demo",
+          "local_account_disabled": false,
+          "azure_active_directory_role_based_access_control": [],
+          "tags": {
+            "owner": "platform-team",
+            "environment": "prod",
+            "data_classification": "moderate"
+          }
+        }
+      }
+    },
+    {
+      "address": "aws_security_group.bastion",
+      "type": "aws_security_group",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "name": "bastion",
+          "ingress": [
+            {
+              "from_port": 22,
+              "to_port": 22,
+              "protocol": "tcp",
+              "cidr_blocks": [
+                "0.0.0.0/0"
+              ],
+              "ipv6_cidr_blocks": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "aws_s3_bucket_public_access_block.data",
+      "type": "aws_s3_bucket_public_access_block",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "after": {
+          "block_public_acls": true,
+          "block_public_policy": false,
+          "ignore_public_acls": true,
+          "restrict_public_buckets": false
+        }
+      }
+    },
+    {
+      "address": "azurerm_storage_account.old",
+      "type": "azurerm_storage_account",
+      "change": {
+        "actions": [
+          "delete"
+        ],
+        "after": {
+          "name": "stold",
+          "min_tls_version": "TLS1_0"
+        }
+      }
+    }
+  ]
+}
